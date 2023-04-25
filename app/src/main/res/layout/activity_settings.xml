@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings"
+    android:backgroundTint="@color/black"
+    android:background="@color/black">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:contentDescription="@string/back"
+        android:padding="5px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+    <LinearLayout
+        android:id="@+id/layoutFrequency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack">
+
+        <Button
+            android:id="@+id/btnMinusFrequency"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#1C1C1C"
+            android:text="@string/minus"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txtFrequencySet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="100 BPM"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnPlusFrequency"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#1C1C1C"
+            android:text="@string/plus"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDuration"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutFrequency">
+
+        <Button
+            android:id="@+id/btnMinusDuration"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#1C1C1C"
+            android:text="@string/minus"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txtDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="250 MS"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnPlusDuration"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#1C1C1C"
+            android:text="@string/plus"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
