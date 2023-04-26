@@ -13,7 +13,7 @@ The last element is the duration. How long should it vibrate in MS (Milli Second
 
 ## ToDos for Developer
 
-- [] Code cleanup
-- [] Maybe add sound
-- [] More documentaion
-- [] Screenshots for `README.md`
+- [ ] Code cleanup
+- [ ] Maybe add sound
+- [ ] More documentaion
+- [ ] Screenshots for `README.md`
