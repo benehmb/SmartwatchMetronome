@@ -21,17 +21,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setup (Set layout, remove App-Title on top of activity and initialize vibrator)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        //v.vibrate(1000);
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.btnSettings);
-        settingsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Settings.class);
-            startActivity(intent);
-        });
 
+        // Frequency
+        TxtFrequency = (TextView) findViewById(R.id.txtFrequency);
+
+        // Start/Stop button
         btnStartStop = (Button) findViewById(R.id.btnStartStop);
         btnStartStop.setOnClickListener(v -> {
             isRunning = !isRunning;
@@ -42,8 +41,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TxtFrequency = (TextView) findViewById(R.id.txtFrequency);
+        // Settings button
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.btnSettings);
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Settings.class);
+            startActivity(intent);
+        });
     }
+
+    /**
+     * When screen is displayed again. Used to update frequency and duration
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -53,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         TxtFrequency.setText(String.valueOf(bpm) + " BPM");
     }
 
+    /**
+     * Start to vibrate and set text and color of Start/Stop-Button
+     */
     private void startVibration(){
         btnStartStop.setText("Stop");
         btnStartStop.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.holo_red_dark)));
@@ -64,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
         vibrator.vibrate(pattern, 0);
     }
 
+    /**
+     * Stops to vibrate and set text and color of Start/Stop-Button
+     */
     private void stopVibration(){
         btnStartStop.setText("Start");
         btnStartStop.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.holo_green_light)));

@@ -18,8 +18,8 @@ The last element is the duration. How long should it vibrate in MS (Milli Second
 
 ## ToDos for Developer
 
-- [ ] Code cleanup
+- [x] Code cleanup
 - [ ] Maybe add sound
-- [ ] More documentation
+- [x] More documentation
 - [ ] Screenshots for `README.md`
 - [x] New App-Icon

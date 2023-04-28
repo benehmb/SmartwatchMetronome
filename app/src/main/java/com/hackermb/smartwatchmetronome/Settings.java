@@ -12,61 +12,73 @@ public class Settings extends AppCompatActivity {
 
     SharedPreferences sharedPref;
     TextView txtFrequency;
+    TextView txtDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setup (Set layout and remove App-Title on top of activity)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().hide();
 
         sharedPref = this.getSharedPreferences(getString(R.string.shared_pref_name), Context.MODE_PRIVATE);
 
-        ImageButton backButton = (ImageButton) findViewById(R.id.btnBack);
+        // Back button
+        ImageButton backButton = findViewById(R.id.btnBack);
         backButton.setOnClickListener(v -> finish());
-        txtFrequency = (TextView) findViewById(R.id.txtFrequencySet);
-        updateTxtFrequencySet();
-        Button btnMinus = (Button) findViewById(R.id.btnMinusFrequency);
-        btnMinus.setOnClickListener(v -> {
-            int bpm = sharedPref.getInt(getString(R.string.shared_pref_frequency), 100);
-            if (bpm > 1) {
-                bpm--;
-                sharedPref.edit().putInt(getString(R.string.shared_pref_frequency), bpm).apply();
-                updateTxtFrequencySet();
-            }
+
+        // Frequency
+        txtFrequency = findViewById(R.id.txtFrequencySet);
+        txtFrequency.setText(sharedPref.getInt(getString(R.string.shared_pref_frequency), 100) + " BPM");
+        Button btnMinusFrequency = findViewById(R.id.btnMinusFrequency);
+        btnMinusFrequency.setOnClickListener(v -> {
+            changeFrequency(-1);
         });
-        Button btnPlus = (Button) findViewById(R.id.btnPlusFrequency);
-        btnPlus.setOnClickListener(v -> {
-            int bpm = sharedPref.getInt(getString(R.string.shared_pref_frequency), 100);
-            if (bpm < 300) {
-                bpm++;
-                sharedPref.edit().putInt(getString(R.string.shared_pref_frequency), bpm).apply();
-                updateTxtFrequencySet();
-            }
+        Button btnPlusFrequency = findViewById(R.id.btnPlusFrequency);
+        btnPlusFrequency.setOnClickListener(v -> {
+            changeFrequency(+1);
         });
-        TextView txtOnTime = (TextView) findViewById(R.id.txtDuration);
-        txtOnTime.setText(String.valueOf(sharedPref.getInt(getString(R.string.shared_pref_duration), 250)) + " ms");
+
+        // Duration
+        txtDuration = findViewById(R.id.txtDuration);
+        txtDuration.setText(sharedPref.getInt(getString(R.string.shared_pref_duration), 250) + " MS");
         Button btnMinusOnTime = (Button) findViewById(R.id.btnMinusDuration);
         btnMinusOnTime.setOnClickListener(v -> {
-            int onTime = sharedPref.getInt(getString(R.string.shared_pref_duration), 250);
-            if (onTime > 1) {
-                onTime--;
-                sharedPref.edit().putInt(getString(R.string.shared_pref_duration), onTime).apply();
-                txtOnTime.setText(String.valueOf(onTime) + " MS");
-            }
+            changeDuration(-1);
         });
-        Button btnPlusOnTime = (Button) findViewById(R.id.btnPlusDuration);
-        btnPlusOnTime.setOnClickListener(v -> {
-            int onTime = sharedPref.getInt(getString(R.string.shared_pref_duration), 250);
-            if (onTime < 1000) {
-                onTime++;
-                sharedPref.edit().putInt(getString(R.string.shared_pref_duration), onTime).apply();
-                txtOnTime.setText(String.valueOf(onTime) + " MS");
-            }
+        Button btnPlusDuration = findViewById(R.id.btnPlusDuration);
+        btnPlusDuration.setOnClickListener(v -> {
+            changeDuration(1);
         });
     }
 
-    private void updateTxtFrequencySet(){
+    /**
+     * Change the frequency by the given amount.
+     * E.g. can be 1 to increase it by 1 or -1 to decrease it by -1
+     * @param amount how much do increase/decrease
+     */
+    private void changeFrequency(int amount){
         int bpm = sharedPref.getInt(getString(R.string.shared_pref_frequency), 100);
-        txtFrequency.setText(String.valueOf(bpm) + " BPM");
+        if ((bpm <= 0 && amount < 0) || (bpm >= 1000 && amount >= 0)){
+            return;
+        }
+        bpm += amount;
+        sharedPref.edit().putInt(getString(R.string.shared_pref_frequency), bpm).apply();
+        txtFrequency.setText(bpm + " BPM");
+    }
+
+    /**
+     * Change the duration by the given amount.
+     * E.g. can be 1 to increase it by 1 or -1 to decrease it by -1
+     * @param amount how much do increase/decrease
+     */
+    private void changeDuration(int amount){
+        int duration = sharedPref.getInt(getString(R.string.shared_pref_duration), 250);
+        if ((duration <= 0 && amount < 0) || (duration >= 1000 && amount > 0)){
+            return;
+        }
+        duration += amount;
+        sharedPref.edit().putInt(getString(R.string.shared_pref_duration), duration).apply();
+        txtDuration.setText(duration + " MS");
     }
 }
