@@ -16,10 +16,15 @@ The second element ist the frequency in BPM (Beats Per Minute). How often per mi
 
 The last element is the duration. How long should it vibrate in MS (Milli Seconds). This is not a timer when it stops. Its just the duration for every beat.
 
+## Screenshots
+
+![Screenshot of Main](./Pictures/Main.png)
+![Screenshot of Settings](./Pictures/Settings.png)
+
 ## ToDos for Developer
 
 - [x] Code cleanup
 - [ ] Maybe add sound
 - [x] More documentation
-- [ ] Screenshots for `README.md`
+- [x] Screenshots for `README.md`
 - [x] New App-Icon
