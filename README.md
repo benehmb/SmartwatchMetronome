@@ -1,7 +1,7 @@
 # SmartwatchMetronome
-Metronome that vibrites for your Smartwatch.
+Metronome that vibrates for your Smartwatch.
 
-This is a simpe app, that uses the Vibrator of your Device and acts as a Metronome. You can change the duration and the Frequency
+This is a simple app, that uses the Vibrator of your Device and acts as a Metronome. You can change the duration and the Frequency
 
 ## Usage
 Just open the App and press Start :)
@@ -17,5 +17,6 @@ The last element is the duration. How long should it vibrate in MS (Milli Second
 
 - [ ] Code cleanup
 - [ ] Maybe add sound
-- [ ] More documentaion
+- [ ] More documentation
 - [ ] Screenshots for `README.md`
+- [ ] New App-Icon
