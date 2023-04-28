@@ -51,7 +51,7 @@ public class Settings extends AppCompatActivity {
             if (onTime > 1) {
                 onTime--;
                 sharedPref.edit().putInt(getString(R.string.shared_pref_duration), onTime).apply();
-                txtOnTime.setText(String.valueOf(onTime) + " ms");
+                txtOnTime.setText(String.valueOf(onTime) + " MS");
             }
         });
         Button btnPlusOnTime = (Button) findViewById(R.id.btnPlusDuration);
