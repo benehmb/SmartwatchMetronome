@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class Settings extends AppCompatActivity {
 
     SharedPreferences sharedPref;
@@ -19,7 +21,7 @@ public class Settings extends AppCompatActivity {
         // Setup (Set layout and remove App-Title on top of activity)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         sharedPref = this.getSharedPreferences(getString(R.string.shared_pref_name), Context.MODE_PRIVATE);
 
@@ -29,7 +31,7 @@ public class Settings extends AppCompatActivity {
 
         // Frequency
         txtFrequency = findViewById(R.id.txtFrequencySet);
-        txtFrequency.setText(sharedPref.getInt(getString(R.string.shared_pref_frequency), 100) + " BPM");
+        changeFrequency(0);
         Button btnMinusFrequency = findViewById(R.id.btnMinusFrequency);
         // on click, decrease by one
         btnMinusFrequency.setOnClickListener(v -> {
@@ -44,7 +46,7 @@ public class Settings extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    changeFrequency(-1);
+                    runOnUiThread(() -> changeFrequency(-1));
                 }
             }).start();
             return true;
@@ -63,7 +65,7 @@ public class Settings extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    changeFrequency(+1);
+                    runOnUiThread(() -> changeFrequency(+1));
                 }
             }).start();
             return true;
@@ -71,7 +73,7 @@ public class Settings extends AppCompatActivity {
 
         // Duration
         txtDuration = findViewById(R.id.txtDuration);
-        txtDuration.setText(sharedPref.getInt(getString(R.string.shared_pref_duration), 250) + " MS");
+        changeDuration(0);
         Button btnMinusOnTime = (Button) findViewById(R.id.btnMinusDuration);
         // on click, decrease by one
         btnMinusOnTime.setOnClickListener(v -> {
@@ -86,7 +88,7 @@ public class Settings extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    changeDuration(-1);
+                    runOnUiThread(() -> changeDuration(-1));
                 }
             }).start();
             return true;
@@ -105,7 +107,7 @@ public class Settings extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    changeDuration(1);
+                    runOnUiThread(() -> changeDuration(1));
                 }
             }).start();
             return true;
@@ -124,7 +126,7 @@ public class Settings extends AppCompatActivity {
         }
         bpm += amount;
         sharedPref.edit().putInt(getString(R.string.shared_pref_frequency), bpm).apply();
-        txtFrequency.setText(bpm + " BPM");
+        txtFrequency.setText(getString(R.string.bpm, bpm));
     }
 
     /**
@@ -139,6 +141,6 @@ public class Settings extends AppCompatActivity {
         }
         duration += amount;
         sharedPref.edit().putInt(getString(R.string.shared_pref_duration), duration).apply();
-        txtDuration.setText(duration + " MS");
+        txtDuration.setText(getString(R.string.duration, duration));
     }
 }

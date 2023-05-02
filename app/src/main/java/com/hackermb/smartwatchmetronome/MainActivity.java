@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView TxtFrequency;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         // Setup (Set layout, remove App-Title on top of activity and initialize vibrator)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         // Frequency
