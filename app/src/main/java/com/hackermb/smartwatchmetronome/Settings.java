@@ -31,24 +31,84 @@ public class Settings extends AppCompatActivity {
         txtFrequency = findViewById(R.id.txtFrequencySet);
         txtFrequency.setText(sharedPref.getInt(getString(R.string.shared_pref_frequency), 100) + " BPM");
         Button btnMinusFrequency = findViewById(R.id.btnMinusFrequency);
+        // on click, decrease by one
         btnMinusFrequency.setOnClickListener(v -> {
             changeFrequency(-1);
         });
+        // on hold, lower by one every 100ms
+        btnMinusFrequency.setOnLongClickListener(v -> {
+            new Thread(() -> {
+                while (btnMinusFrequency.isPressed()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    changeFrequency(-1);
+                }
+            }).start();
+            return true;
+        });
         Button btnPlusFrequency = findViewById(R.id.btnPlusFrequency);
+        // on click, increase by one
         btnPlusFrequency.setOnClickListener(v -> {
             changeFrequency(+1);
+        });
+        // on hold, increase by one every 100ms
+        btnPlusFrequency.setOnLongClickListener(v -> {
+            new Thread(() -> {
+                while (btnPlusFrequency.isPressed()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    changeFrequency(+1);
+                }
+            }).start();
+            return true;
         });
 
         // Duration
         txtDuration = findViewById(R.id.txtDuration);
         txtDuration.setText(sharedPref.getInt(getString(R.string.shared_pref_duration), 250) + " MS");
         Button btnMinusOnTime = (Button) findViewById(R.id.btnMinusDuration);
+        // on click, decrease by one
         btnMinusOnTime.setOnClickListener(v -> {
             changeDuration(-1);
         });
+        // on hold, lower by one every 100ms
+        btnMinusOnTime.setOnLongClickListener(v -> {
+            new Thread(() -> {
+                while (btnMinusOnTime.isPressed()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    changeDuration(-1);
+                }
+            }).start();
+            return true;
+        });
         Button btnPlusDuration = findViewById(R.id.btnPlusDuration);
+        // on click, increase by one
         btnPlusDuration.setOnClickListener(v -> {
             changeDuration(1);
+        });
+        // on hold, increase by one every 100ms
+        btnPlusDuration.setOnLongClickListener(v -> {
+            new Thread(() -> {
+                while (btnPlusDuration.isPressed()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    changeDuration(1);
+                }
+            }).start();
+            return true;
         });
     }
 
