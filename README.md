@@ -28,3 +28,6 @@ The last element is the duration. How long should it vibrate in MS (Milli Second
 - [x] More documentation
 - [x] Screenshots for `README.md`
 - [x] New App-Icon
+
+## Known problems and limitations
+Keeps the screen on while running. Partial wake lock won't use on the vibrator and AmbientMode is not supported on API-Level 23 and normal android apps.

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnStartStop;
     int bpm = 100;
     int duration = 250;
+    PowerManager.WakeLock wakeLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, Settings.class);
             startActivity(intent);
         });
+
+        //get the wake lock
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,"SmartwatchMetronome:keepAwake");
     }
 
     /**
@@ -64,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * When screen is not displayed anymore. Used to stop vibration
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopVibration();
+    }
+
+    /**
      * Start to vibrate and set text and color of Start/Stop-Button
      */
     private void startVibration(){
@@ -74,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         int vibrationDuration = duration; // duration of vibration in milliseconds
         int intervalDuration = beatDuration - vibrationDuration; // duration of interval between vibrations
         long[] pattern = {0, vibrationDuration, intervalDuration}; // pattern with 1 beat
+        wakeLock.acquire(10*60*1000L /*10 minutes*/);
         vibrator.vibrate(pattern, 0);
     }
 
@@ -84,5 +100,6 @@ public class MainActivity extends AppCompatActivity {
         btnStartStop.setText("Start");
         btnStartStop.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.holo_green_light)));
         vibrator.cancel();
+        wakeLock.release();
     }
 }
