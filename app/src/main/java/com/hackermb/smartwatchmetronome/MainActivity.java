@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Vibrator;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
