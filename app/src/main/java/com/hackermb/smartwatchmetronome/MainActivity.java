@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         btnStartStop.setText("Start");
         btnStartStop.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.holo_green_light)));
         vibrator.cancel();
-        wakeLock.release();
+        if (wakeLock.isHeld())
+            wakeLock.release();
     }
 }
